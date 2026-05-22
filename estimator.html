@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildWise Estimator</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">BuildWise</div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="estimator.html">Estimator</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="team.html">Team</a></li>
+    </ul>
+</nav>
+
+<section class="page-header">
+    <p class="tag">SMART ESTIMATION ENGINE</p>
+    <h1>Indian House Construction Estimator</h1>
+    <p class="hero-subtext">
+        Estimate realistic house construction budgets with range-based pricing and custom manual overrides.
+    </p>
+</section>
+
+<section class="estimator-section">
+<div class="dashboard">
+
+<div class="glass-card">
+
+<h3>Basic Project Inputs</h3>
+
+<input type="number" id="length" placeholder="Length (meters)">
+<input type="number" id="width" placeholder="Width (meters)">
+<input type="number" id="floors" placeholder="Number of Floors">
+
+<h3>Structural Materials</h3>
+
+<!-- CEMENT -->
+<select id="cementBrand" onchange="toggleCustomInputs()">
+    <option value="">Select Cement Brand</option>
+    <option value="ultratech">UltraTech Cement</option>
+    <option value="acc">ACC Cement</option>
+    <option value="ambuja">Ambuja Cement</option>
+    <option value="shree">Shree Cement</option>
+    <option value="dalmia">Dalmia Cement</option>
+    <option value="ramco">Ramco Cement</option>
+    <option value="jk">JK Cement</option>
+    <option value="wonder">Wonder Cement</option>
+    <option value="other">Other Cement Brand</option>
+</select>
+
+<input
+type="number"
+id="cementCustom"
+placeholder="Enter Cement Price per Bag (₹)"
+class="hidden"
+>
+
+<!-- STEEL -->
+<select id="steelBrand" onchange="toggleCustomInputs()">
+    <option value="">Select Steel Brand</option>
+    <option value="tata">Tata Tiscon</option>
+    <option value="jsw">JSW Steel</option>
+    <option value="sail">SAIL</option>
+    <option value="jindal">Jindal Steel</option>
+    <option value="vizag">Vizag Steel</option>
+    <option value="kamdhenu">Kamdhenu</option>
+    <option value="shyam">Shyam Steel</option>
+    <option value="other">Other Steel Brand</option>
+</select>
+
+<input
+type="number"
+id="steelCustom"
+placeholder="Enter Steel Price per Kg (₹)"
+class="hidden"
+>
+
+<!-- BRICKS -->
+<select id="brickType" onchange="toggleCustomInputs()">
+    <option value="">Select Brick Type</option>
+    <option value="red">Red Bricks</option>
+    <option value="flyash">Fly Ash Bricks</option>
+    <option value="aac">AAC Blocks</option>
+    <option value="concrete">Concrete Blocks</option>
+    <option value="other">Other Brick Type</option>
+</select>
+
+<input
+type="number"
+id="brickCustom"
+placeholder="Enter Brick Price per Piece (₹)"
+class="hidden"
+>
+
+<!-- SAND -->
+<select id="sandType" onchange="toggleCustomInputs()">
+    <option value="">Select Sand Type</option>
+    <option value="river">River Sand</option>
+    <option value="msand">M-Sand</option>
+    <option value="plaster">Plastering Sand</option>
+    <option value="other">Other Sand Type</option>
+</select>
+
+<input
+type="number"
+id="sandCustom"
+placeholder="Enter Sand Price per m³ (₹)"
+class="hidden"
+>
+
+<!-- AGGREGATE -->
+<select id="aggregateType" onchange="toggleCustomInputs()">
+    <option value="">Select Aggregate Type</option>
+    <option value="20mm">20mm Aggregate</option>
+    <option value="40mm">40mm Aggregate</option>
+    <option value="crushed">Crushed Stone</option>
+    <option value="other">Other Aggregate Type</option>
+</select>
+
+<input
+type="number"
+id="aggregateCustom"
+placeholder="Enter Aggregate Price per Ton (₹)"
+class="hidden"
+>
+
+<h3>Finishing Materials</h3>
+
+<!-- PAINT -->
+<select id="paintBrand" onchange="toggleCustomInputs()">
+    <option value="">Select Paint Brand</option>
+    <option value="asian">Asian Paints</option>
+    <option value="berger">Berger</option>
+    <option value="nerolac">Nerolac</option>
+    <option value="dulux">Dulux</option>
+    <option value="other">Other Paint Brand</option>
+</select>
+
+<input
+type="number"
+id="paintCustom"
+placeholder="Enter Paint Cost per sq ft (₹)"
+class="hidden"
+>
+<!-- FLOORING -->
+<select id="flooringType" onchange="toggleCustomInputs()">
+    <option value="">Select Flooring Type</option>
+    <option value="tiles">Vitrified Tiles</option>
+    <option value="granite">Granite</option>
+    <option value="marble">Marble</option>
+    <option value="wood">Wood Flooring</option>
+    <option value="other">Other Flooring</option>
+</select>
+
+<input
+type="number"
+id="flooringCustom"
+placeholder="Enter Flooring Price per sq ft (₹)"
+class="hidden"
+>
+
+<h3>Utilities</h3>
+
+<!-- PLUMBING -->
+<select id="plumbingBrand" onchange="toggleCustomInputs()">
+    <option value="">Select Plumbing Brand</option>
+    <option value="ashirvad">Ashirvad</option>
+    <option value="supreme">Supreme</option>
+    <option value="jaquar">Jaquar</option>
+    <option value="hindware">Hindware</option>
+    <option value="other">Other Plumbing Brand</option>
+</select>
+
+<input
+type="number"
+id="plumbingCustom"
+placeholder="Enter Plumbing Cost per sq ft (₹)"
+class="hidden"
+>
+
+<!-- ELECTRICAL -->
+<select id="electricalBrand" onchange="toggleCustomInputs()">
+    <option value="">Select Electrical Brand</option>
+    <option value="havells">Havells</option>
+    <option value="anchor">Anchor</option>
+    <option value="legrand">Legrand</option>
+    <option value="schneider">Schneider</option>
+    <option value="other">Other Electrical Brand</option>
+</select>
+
+<input
+type="number"
+id="electricalCustom"
+placeholder="Enter Electrical Cost per sq ft (₹)"
+class="hidden"
+>
+
+<h3>Other Construction Components</h3>
+
+<!-- ROOFING -->
+<select id="roofingType" onchange="toggleCustomInputs()">
+    <option value="">Select Roofing Type</option>
+    <option value="rcc">RCC Roofing</option>
+    <option value="sheet">Metal Sheet Roofing</option>
+    <option value="falseceiling">False Ceiling Roofing</option>
+    <option value="other">Other Roofing Type</option>
+</select>
+
+<input
+type="number"
+id="roofingCustom"
+placeholder="Enter Roofing Cost per sq ft (₹)"
+class="hidden"
+>
+
+<!-- DOORS -->
+<select id="doorType" onchange="toggleCustomInputs()">
+    <option value="">Select Doors / Windows</option>
+    <option value="wood">Wooden</option>
+    <option value="upvc">UPVC</option>
+    <option value="aluminium">Aluminium</option>
+    <option value="steel">Steel</option>
+    <option value="other">Other Doors / Windows</option>
+</select>
+
+<input
+type="number"
+id="doorCustom"
+placeholder="Enter Lump Sum Door/Window Cost (₹)"
+class="hidden"
+>
+
+<!-- LABOR -->
+<select id="laborType" onchange="toggleCustomInputs()">
+    <option value="">Select Labor Quality</option>
+    <option value="basic">Basic</option>
+    <option value="standard">Standard</option>
+    <option value="premium">Premium</option>
+    <option value="other">Custom Labor Rate</option>
+</select>
+
+<input
+type="number"
+id="laborCustom"
+placeholder="Enter Labor Cost per sq ft (₹)"
+class="hidden"
+>
+
+<input
+type="number"
+id="contingency"
+placeholder="Contingency % (Recommended 5–15)"
+>
+
+<button onclick="calculateCost()">Generate Estimate</button>
+
+</div>
+
+<div class="glass-card">
+    <h3>Budget Estimation</h3>
+
+    <div id="results">
+        <p>No estimate generated yet.</p>
+    </div>
+</div>
+
+</div>
+
+<div class="chart-container glass-card">
+    <h3>Estimated Cost Distribution</h3>
+    <canvas id="costChart"></canvas>
+</div>
+
+</section>
+
+<footer>
+    <p>BuildWise © 2026 | Smart Indian Construction Estimator</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
