@@ -6,13 +6,20 @@
     <title>BuildWise Estimator</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- CHART.JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo">BuildWise</div>
 
@@ -24,20 +31,24 @@
     </ul>
 </nav>
 
+<!-- HEADER -->
 <section class="page-header">
-    <p class="tag">SMART ESTIMATION ENGINE</p>
-    <h1>Indian House Construction Estimator</h1>
+    <p class="tag">SMART CONSTRUCTION INTELLIGENCE</p>
+    <h1>Premium House Cost Estimator</h1>
     <p class="hero-subtext">
-        Estimate realistic house construction budgets with range-based pricing and custom manual overrides.
+        Estimate realistic residential construction budgets using Indian market pricing,
+        material selection intelligence, contingency planning, and premium downloadable reports.
     </p>
 </section>
 
+<!-- MAIN -->
 <section class="estimator-section">
 <div class="dashboard">
 
+<!-- FORM -->
 <div class="glass-card">
 
-<h3>Basic Project Inputs</h3>
+<h3>Project Dimensions</h3>
 
 <input type="number" id="length" placeholder="Length (meters)">
 <input type="number" id="width" placeholder="Width (meters)">
@@ -62,7 +73,7 @@
 <input
 type="number"
 id="cementCustom"
-placeholder="Enter Cement Price per Bag (₹)"
+placeholder="Custom Cement Price per Bag (₹)"
 class="hidden"
 >
 
@@ -82,7 +93,7 @@ class="hidden"
 <input
 type="number"
 id="steelCustom"
-placeholder="Enter Steel Price per Kg (₹)"
+placeholder="Custom Steel Price per Kg (₹)"
 class="hidden"
 >
 
@@ -99,7 +110,7 @@ class="hidden"
 <input
 type="number"
 id="brickCustom"
-placeholder="Enter Brick Price per Piece (₹)"
+placeholder="Custom Brick Price per Piece (₹)"
 class="hidden"
 >
 
@@ -115,7 +126,7 @@ class="hidden"
 <input
 type="number"
 id="sandCustom"
-placeholder="Enter Sand Price per m³ (₹)"
+placeholder="Custom Sand Price per m³ (₹)"
 class="hidden"
 >
 
@@ -131,7 +142,7 @@ class="hidden"
 <input
 type="number"
 id="aggregateCustom"
-placeholder="Enter Aggregate Price per Ton (₹)"
+placeholder="Custom Aggregate Price per Ton (₹)"
 class="hidden"
 >
 
@@ -150,7 +161,7 @@ class="hidden"
 <input
 type="number"
 id="paintCustom"
-placeholder="Enter Paint Cost per sq ft (₹)"
+placeholder="Custom Paint Rate per sq ft (₹)"
 class="hidden"
 >
 <!-- FLOORING -->
@@ -166,7 +177,7 @@ class="hidden"
 <input
 type="number"
 id="flooringCustom"
-placeholder="Enter Flooring Price per sq ft (₹)"
+placeholder="Custom Flooring Rate per sq ft (₹)"
 class="hidden"
 >
 
@@ -185,7 +196,7 @@ class="hidden"
 <input
 type="number"
 id="plumbingCustom"
-placeholder="Enter Plumbing Cost per sq ft (₹)"
+placeholder="Custom Plumbing Rate per sq ft (₹)"
 class="hidden"
 >
 
@@ -202,7 +213,7 @@ class="hidden"
 <input
 type="number"
 id="electricalCustom"
-placeholder="Enter Electrical Cost per sq ft (₹)"
+placeholder="Custom Electrical Rate per sq ft (₹)"
 class="hidden"
 >
 
@@ -213,14 +224,14 @@ class="hidden"
     <option value="">Select Roofing Type</option>
     <option value="rcc">RCC Roofing</option>
     <option value="sheet">Metal Sheet Roofing</option>
-    <option value="falseceiling">False Ceiling Roofing</option>
+    <option value="falseceiling">False Ceiling</option>
     <option value="other">Other Roofing Type</option>
 </select>
 
 <input
 type="number"
 id="roofingCustom"
-placeholder="Enter Roofing Cost per sq ft (₹)"
+placeholder="Custom Roofing Rate per sq ft (₹)"
 class="hidden"
 >
 
@@ -237,7 +248,7 @@ class="hidden"
 <input
 type="number"
 id="doorCustom"
-placeholder="Enter Lump Sum Door/Window Cost (₹)"
+placeholder="Custom Lump Sum Door/Window Cost (₹)"
 class="hidden"
 >
 
@@ -253,30 +264,42 @@ class="hidden"
 <input
 type="number"
 id="laborCustom"
-placeholder="Enter Labor Cost per sq ft (₹)"
+placeholder="Custom Labor Rate per sq ft (₹)"
 class="hidden"
 >
+
+<h3>Risk Buffer</h3>
 
 <input
 type="number"
 id="contingency"
 placeholder="Contingency % (Recommended 5–15)"
 >
+<!-- ACTION BUTTONS -->
+<button onclick="calculateCost()">
+    Generate Estimate
+</button>
 
-<button onclick="calculateCost()">Generate Estimate</button>
+<button onclick="downloadPDF()">
+    Download Premium PDF Report
+</button>
 
 </div>
 
+<!-- RESULTS PANEL -->
 <div class="glass-card">
-    <h3>Budget Estimation</h3>
+    <h3>Budget Estimation Dashboard</h3>
 
     <div id="results">
-        <p>No estimate generated yet.</p>
+        <div class="result-item">
+            No estimate generated yet.
+        </div>
     </div>
 </div>
 
 </div>
 
+<!-- CHART SECTION -->
 <div class="chart-container glass-card">
     <h3>Estimated Cost Distribution</h3>
     <canvas id="costChart"></canvas>
@@ -284,10 +307,14 @@ placeholder="Contingency % (Recommended 5–15)"
 
 </section>
 
+<!-- FOOTER -->
 <footer>
-    <p>BuildWise © 2026 | Smart Indian Construction Estimator</p>
+    <p>
+        BuildWise © 2026 | Smart Indian Construction Intelligence Platform
+    </p>
 </footer>
 
+<!-- SCRIPT -->
 <script src="script.js"></script>
 
 </body>
